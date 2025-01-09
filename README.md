@@ -94,3 +94,26 @@ python main.py
    - Cites verified sources
    - Suggests future research
 
+## Sample Output
+
+- Question: 
+
+```
+What are attention mechanisms in LLMs?
+```
+
+- Answer:
+
+```
+assistant (to chat_manager):
+
+Based on the discussion between agents, here is a summary:
+
+The Scientist found three key papers that discuss the concept of attention mechanisms: "Attention is All you Need" by Vaswani et al. (ARXIV, 1706.03762), "Neural Machine Translation by Jointly Learning to Align and Translate" by Bahdanau et al. (ARXIV, 1409.0473), and "Effective Approaches to Attention-based Neural Machine Translation" by Luong et al. (ARXIV, 1508.04025). 
+
+These papers explain that attention mechanisms allow models to focus on different parts of the input sequence when producing an output. This improves the model's ability to handle long sequences and complex relationships.
+
+As for the application of attention mechanisms in Language Learning Models (LLMs), different types of attention mechanisms used in LLMs, the benefits and drawbacks of using attention mechanisms in LLMs, and the future prospects of attention mechanisms in LLMs, further research is required.
+
+In conclusion, attention mechanisms in LLMs are techniques that allow models to focus on different parts of the input sequence when producing an output, thereby improving the model's ability to handle long sequences and complex relationships. Further research is needed to fully understand their application, types, benefits, drawbacks, and future prospects in LLMs.
+```
