@@ -46,8 +46,9 @@ def main():
     
     # 示例查询
     ##question = "What are the latest findings on dark matter?"
-    question = "What are attention mechanisms in LLMs?"
-    ##question = "What are scientific AI agents?"
+    ##question = "What are attention mechanisms in LLMs?"
+    ##question = "When will quantum computing break hash algorithm (sha256)?"
+    question = "What hardfork will Bitcoin have to prevent quantum computing from breaking it?"
     ##question = "What are the latest findings on zk proof systems?"
     message = f"""Research Question: {question}
 
