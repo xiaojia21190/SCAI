@@ -6,7 +6,6 @@ A framework for building scientific AI agents that can collaborate and solve com
 
 - Multi-agent collaboration system
 - Scientific research workflow automation
-- Cursor composer pattern for response management
 - Extensible agent architecture
 
 ## Prerequisites
