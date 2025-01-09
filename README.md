@@ -30,37 +30,5 @@ export OPENAI_API_KEY=your_api_key_here
 
 2. Run the basic example:
 ```bash
-python examples/basic_research.py
+python main.py
 ```
-
-## Usage
-
-1. Create your agent configuration:
-```python
-from scientific_agents import ResearchAgent, AnalysisAgent
-
-researcher = ResearchAgent()
-analyst = AnalysisAgent()
-```
-
-2. Define your research query:
-```python
-query = "Investigate the effects of temperature on protein folding"
-```
-
-3. Run the agent collaboration:
-```python
-results = researcher.collaborate_with(analyst, query)
-```
-
-## Advanced Configuration
-
-See `config/` directory for detailed configuration options and examples.
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
