@@ -6,6 +6,7 @@ from typing import List, Dict
 from datetime import datetime
 from hashlib import md5
 from tenacity import retry, stop_after_attempt, wait_exponential
+import time
 
 
 class ScientistRAGAgent(BaseAgent):
@@ -56,6 +57,5 @@ Remember: You have real search functionality - use it! Don't just show code or s
         # 因为要分析全文，所以这里就会直接调用RAG
 
         res = run_arxiv_rag(query, max_results)
-
         # 分析论文
         return res

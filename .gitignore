@@ -19,6 +19,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+40.8.0
 
 # 虚拟环境
 venv/

@@ -27,15 +27,19 @@ def main():
     )
 
     # 示例查询
-    ##question = "What are the latest findings on dark matter?"
-    ##question = "What are attention mechanisms in LLMs?"
-    ##question = "When will quantum computing break hash algorithm (sha256)?"
+    # question = "What are the latest findings on dark matter?"
+    # question = "What are attention mechanisms in LLMs?"
+    # question = "When will quantum computing break hash algorithm (sha256)?"
     question = (
         "What hardfork will Bitcoin have to prevent quantum computing from breaking it?"
     )
+    # question = "Find me some paper about robot price"
 
     parser = InputParser()
     query = parser.parse_query(question)
+
+    print(f"The classification result is: {query.intent}")
+
     if query.intent == "sensitive":
         print("I can't help you with this question, it was beyond my grasp.")
         return
@@ -61,10 +65,9 @@ def main():
 
         user_proxy.initiate_chat(manager, message=message)
     else:
-
         # Initialize agents
         planner = PlannerAgent().get_agent()
-        if query.intent == "paper_search":
+        if query.intent == "search":
             scientist = ScientistRAGAgent().get_agent()
         else:
             scientist = ScientistAgent().get_agent()
@@ -92,7 +95,7 @@ def main():
         message = f"""Research Question: {question}
 
     IMPORTANT GUIDELINES:
-    1. Scientist must search for papers using the search_and_analyze function
+    1. Scientist must search for papers using the [search_and_analyze] function
     2. Only cite papers from actual search results
     3. Never make up or modify paper information
     4. Use exact paper details from search results
