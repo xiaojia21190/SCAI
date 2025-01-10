@@ -80,10 +80,10 @@ def chat_rag_init(prompt: str, doc: str):
     documents = SimpleDirectoryReader(input_files=doc).load_data()
     # TODO 需要考虑什么样的模型/Embedding模型更好
     # emb
-    Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text")
+    Settings.embed_model = OllamaEmbedding(model_name="gemma2:2b")
 
     # llm
-    Settings.llm = Ollama(model="llama3.2:3b-instruct-q8_0", request_timeout=360)
+    Settings.llm = Ollama(model="gemma2:2b", request_timeout=360)
 
     # IN THE TEST, THE DATA SHALL NOT BE PERSIST
     index = VectorStoreIndex.from_documents(documents)
