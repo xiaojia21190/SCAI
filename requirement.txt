@@ -1,0 +1,10 @@
+PyPDF2
+autogen
+ollama
+scholarly
+pyautogen
+openai
+elasticsearch
+requests
+python-dotenv
+llama-index
