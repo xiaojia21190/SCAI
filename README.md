@@ -13,6 +13,9 @@ A framework for building scientific AI agents that can collaborate and solve com
 - Python 3.8+
 - AutoGen library
 - OpenAI API key
+- Ollama
+- Ollama run gemma2:2b
+- llamaindex
 
 ## Installation
 
