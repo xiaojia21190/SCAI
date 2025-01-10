@@ -1,5 +1,6 @@
 from .base import BaseAgent
 
+
 class OntologistAgent(BaseAgent):
     def __init__(self):
         super().__init__(
@@ -8,5 +9,5 @@ class OntologistAgent(BaseAgent):
 1. Map relationships between scientific concepts
 2. Identify key terms and their definitions
 3. Create structured knowledge representations
-4. Maintain consistency in scientific terminology"""
+4. Maintain consistency in scientific terminology""",
         )

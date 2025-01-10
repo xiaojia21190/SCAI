@@ -1,31 +1,19 @@
 import os
-
 from pypdf import PdfReader
-from config import (
-    DOC_DIR_TEMP,
-    INDEX_DIR_TEMP,
-    DOC_DIR,
-    INDEX_DIR,
-    INIT_KNOW1,
-    INIT_KNOW2,
-    INIT_KNOW3,
-    INIT_MEM,
-    INIT_MEM_RAG_FIND,
-    INIT_MEM_RAG_INTENT,
-    INIT_MEM_RAG_QUERY,
-    DOC_DIR_RAG_FIND,
-    INDEX_DIR_RAG_FIND,
-    INIT_MEM_X,
-)
-from rag import chat_rag, query_rag
-from rag import chat_rag_init
-import json
 import requests
-import ollama
-from fetch_arxiv import PaperSearcher
 
-pdf_dir = "./scai_rag/rag_temp_pdf"
-doc_dir = "./scai_rag/rag_temp_doc"
+from agents.rag.config import (
+    INIT_MEM_RAG_QUERY,
+    PDF_DIR,
+    DOC_DIR,
+)
+from agents.rag.rag import chat_rag
+from agents.rag.rag import chat_rag_init
+from agents.rag.fetch_arxiv import PaperSearcher
+
+
+pdf_dir = PDF_DIR
+doc_dir = DOC_DIR
 
 # 创建保存PDF和文档的文件夹（如果不存在）
 os.makedirs(pdf_dir, exist_ok=True)
@@ -138,117 +126,12 @@ def rag_proces(res, arxiv_ids, pdf_dir, doc_dir, query):
     #     print(" ")
 
 
-def chat_intent(query: str) -> str:
-
-    # Use Ollama to get a response based on initial memory
-    response = ollama.chat(
-        model="gemma2:2b",
-        messages=[
-            INIT_MEM_RAG_INTENT,
-            {
-                "role": "user",
-                "content": query,
-            },
-        ],
-    )
-    return response["message"]["content"]
-
-
-# 用户对话历史存储路径
-user_history = {}
-
-
-def chat_with_ai(user_id: str, message: str) -> str:
-    # Initialize the history for the user if it doesn't exist
-    if user_id not in user_history:
-        user_history[user_id] = [INIT_MEM, INIT_KNOW1, INIT_KNOW2, INIT_KNOW3]
-
-    # Add the new user message to the history
-    user_history[user_id].append({"role": "user", "content": message})
-
-    # Ensure we only keep the last 10 messages (but preserve the first memory)
-    if len(user_history[user_id]) > 10:
-        # Remove the oldest message, excluding the initial system memory
-        user_history[user_id] = user_history[user_id][-10:]
-
-    try:
-        # Use Ollama to interact with the AI model
-        response = ollama.chat(
-            model="llama3.2:3b-instruct-q8_0", messages=user_history[user_id]
-        )
-        assistant_message = response["message"]["content"]
-
-        # Add the assistant's reply to the history
-        user_history[user_id].append(
-            {"role": "assistant", "content": assistant_message}
-        )
-
-        # Again, limit the history to 10 messages (excluding the first system message)
-        if len(user_history[user_id]) > 10:
-            user_history[user_id] = user_history[user_id][-10:]
-
-        return assistant_message
-    except Exception as e:
-        return f"Error during AI interaction: {str(e)}"
-
-
-def run(query: str):
-    # 示例arxiv_id
-    # 使用示例
-
-    # 精度？泛读？聊天？不回答？
-    while True:
-
-        intent: str = chat_intent(query)
-        print(intent)
-        if intent.__contains__("True") or intent.__contains__("False"):
-            break
-
-    if intent.__contains__("True"):
-
-        searcher = PaperSearcher()
-
-        # 搜索论文（例如搜索“machine learning”）
-        res = searcher._search_arxiv(query, max_results=5)
-
-        arxiv_ids = []
-
-        # 遍历解析后的数据，收集所有的 arxiv_id
-        for item in res:
-            print(f"ID: {item['aid']}, Name: {item['title']}")
-            arxiv_ids.append(item["aid"])
-
-        # 调用 rag_proces 函数处理所有的 arxiv_id
-        rag_proces(res, arxiv_ids, pdf_dir, doc_dir)
-
-    else:
-        print(" ")
-        response = chat_with_ai("temp", intent)
-        print(" ")
-        print(f"SCAI: {response}")
-        print("Chat engine initialized. You can now ask questions.")
-        print("Type 'exit' to quit the program.\n")
-
-        # 多轮对话
-        while True:
-            user_input = input("You: ")  # 接受用户输入
-            if user_input.lower() == "exit":
-                print("Exiting the chat. Goodbye!")
-                break  # 用户输入 'exit' 时退出
-
-            # 使用 chat_rag 处理用户问题
-            response = chat_with_ai("temp", user_input)
-            print(" ")
-            print(f"SCAI: {response}")
-            print(" ")
-
-
-def run_arxiv_rag(query: str, max_results):
+def run_arxiv_rag(query: str, max_results=5):
 
     searcher = PaperSearcher()
 
     # 搜索论文（例如搜索“machine learning”）
-    res = searcher._search_arxiv(query, max_results=5)
+    res = searcher._search_arxiv(query, max_results=max_results)
 
     arxiv_ids = []
 
@@ -258,11 +141,10 @@ def run_arxiv_rag(query: str, max_results):
         arxiv_ids.append(item["aid"])
 
     # 调用 rag_proces 函数处理所有的 arxiv_id
-    rag_proces(res, arxiv_ids, pdf_dir, doc_dir)
+    rag_proces(res, arxiv_ids, pdf_dir, doc_dir, query)
 
 
-# run("Find me some paper about RAG")
-run("who are you")
+# run_arxiv_rag("Find me some paper about RAG")
 
 # phi4
 # reply, mentioned, search big V

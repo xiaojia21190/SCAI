@@ -8,3 +8,4 @@ elasticsearch
 requests
 python-dotenv
 llama-index
+flaml[automl]

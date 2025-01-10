@@ -5,15 +5,11 @@ from llama_index.core import (
     Settings,
     StorageContext,
     load_index_from_storage,
-    get_response_synthesizer,
     chat_engine,
 )
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.llms.ollama import Ollama
 from llama_index.embeddings.ollama import OllamaEmbedding
-from llama_index.readers.file import PDFReader
-from llama_index.core.retrievers import VectorIndexRetriever
-from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core import PromptTemplate
 
 
