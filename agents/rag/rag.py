@@ -11,6 +11,10 @@ from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.llms.ollama import Ollama
 from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.core import PromptTemplate
+from llama_index.embeddings.openai import OpenAIEmbedding
+from openai import OpenAI
+
+from config.llm_config import LLM_CONFIG, MODEL
 
 
 # 使用创建的索引执行查询
@@ -19,12 +23,18 @@ def query_rag(
 ):
     # load pdf
 
-    # TODO 需要考虑什么样的模型/Embedding模型更好
-    # emb
-    Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text")
+    if MODEL == "GPT":
+        Settings.embed_model = OpenAIEmbedding(api_key=LLM_CONFIG["api_key"])
+    else:
+        Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text")
 
     # llm
-    Settings.llm = Ollama(model="gemma2:2b", request_timeout=360)
+    if MODEL == "GPT":
+        Settings.llm = OpenAI(
+            api_key=LLM_CONFIG["api_key"], temperature=0, model=LLM_CONFIG["model"]
+        )
+    else:
+        Settings.llm = Ollama(model="gemma2:2b", request_timeout=360)
 
     # IN THE TEST, THE DATA SHALL NOT BE PERSIST
     if temp_or_presist == "TEMP":
@@ -74,12 +84,19 @@ def query_rag(
 
 def chat_rag_init(prompt: str, doc: str):
     documents = SimpleDirectoryReader(input_files=doc).load_data()
-    # TODO 需要考虑什么样的模型/Embedding模型更好
-    # emb
-    Settings.embed_model = OllamaEmbedding(model_name="gemma2:2b")
+
+    if MODEL == "GPT":
+        Settings.embed_model = OpenAIEmbedding(api_key=LLM_CONFIG["api_key"])
+    else:
+        Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text")
 
     # llm
-    Settings.llm = Ollama(model="gemma2:2b", request_timeout=360)
+    if MODEL == "GPT":
+        Settings.llm = OpenAI(
+            api_key=LLM_CONFIG["api_key"], temperature=0, model=LLM_CONFIG["model"]
+        )
+    else:
+        Settings.llm = Ollama(model="gemma2:2b", request_timeout=360)
 
     # IN THE TEST, THE DATA SHALL NOT BE PERSIST
     index = VectorStoreIndex.from_documents(documents)

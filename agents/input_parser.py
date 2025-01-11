@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import List, Optional
-
 import ollama
+
+from config.llm_config import LLM_CONFIG, MODEL
 
 LLM_INTENT = {
     "role": "system",
@@ -15,36 +16,59 @@ LLM_KEY = {
 }
 
 
+import openai
+
+
+def chat_with_gpt(query):
+    client = openai.OpenAI(api_key=LLM_CONFIG["api_key"])
+    try:
+        response = client.chat.completions.create(
+            model=LLM_CONFIG["model"],
+            messages=[
+                {"role": "system", "content": LLM_INTENT},
+                {"role": "user", "content": query},
+            ],
+            max_tokens=150,
+        )
+        return response["choices"][0]["message"]["content"]
+    except Exception as e:
+        return f"Error: {e}"
+
+
 def chat_intent(query: str) -> str:
 
-    # Use Ollama to get a response based on initial memory
-    response = ollama.chat(
-        model="gemma2:2b",
-        messages=[
-            LLM_INTENT,
-            {
-                "role": "user",
-                "content": query,
-            },
-        ],
-    )
-    return response["message"]["content"]
+    if MODEL == "GPT":
+        response = chat_with_gpt(query)
+        return response
+    else:
+        # Use Ollama to get a response based on initial memory
+        response = ollama.chat(
+            model="gemma2:2b",
+            messages=[
+                LLM_INTENT,
+                {
+                    "role": "user",
+                    "content": query,
+                },
+            ],
+        )
+        return response["message"]["content"]
 
 
-def chat_key(query: str) -> str:
+# def chat_key(query: str) -> str:
 
-    # Use Ollama to get a response based on initial memory
-    response = ollama.chat(
-        model="gemma2:2b",
-        messages=[
-            LLM_KEY,
-            {
-                "role": "user",
-                "content": query,
-            },
-        ],
-    )
-    return response["message"]["content"]
+#     # Use Ollama to get a response based on initial memory
+#     response = ollama.chat(
+#         model="gemma2:2b",
+#         messages=[
+#             LLM_KEY,
+#             {
+#                 "role": "user",
+#                 "content": query,
+#             },
+#         ],
+#     )
+#     return response["message"]["content"]
 
 
 @dataclass
