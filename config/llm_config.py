@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+MODEL = "GPT"
+
 LLM_CONFIG = {
     "model": "gpt-4",
     "temperature": 0.3,
