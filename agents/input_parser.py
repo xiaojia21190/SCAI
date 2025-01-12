@@ -1,13 +1,7 @@
 from dataclasses import dataclass
-from typing import List, Optional
-import ollama
-
+from typing import List
+from agents.intent import IntentAgent
 from config.llm_config import LLM_CONFIG, MODEL
-
-LLM_INTENT = {
-    "role": "system",
-    "content": "You are a program, you direct ouput the required datatype, without any human language and extra infomation. You will be given a sentence, judge, and return one of the 4 catalogy, which are [`discussion`, `search`, `chat`, `sensitive`]. [discussion]: The user intent to ask question about philosophy/technology/acadamic topics. [search]: The user want to obtian special papers for full page knowledge. [chat]: The user intent to have conversation based on common sense/daily life. [sensitive]: The user intent to talk about violence, politic or other sensitive content.",
-}
 
 LLM_KEY = {
     "role": "system",
@@ -16,43 +10,10 @@ LLM_KEY = {
 }
 
 
-import openai
-
-
-def chat_with_gpt(query):
-    client = openai.OpenAI(api_key=LLM_CONFIG["api_key"])
-    try:
-        response = client.chat.completions.create(
-            model=LLM_CONFIG["model"],
-            messages=[
-                {"role": "system", "content": LLM_INTENT},
-                {"role": "user", "content": query},
-            ],
-            max_tokens=150,
-        )
-        return response["choices"][0]["message"]["content"]
-    except Exception as e:
-        return f"Error: {e}"
-
-
 def chat_intent(query: str) -> str:
-
-    if MODEL == "GPT":
-        response = chat_with_gpt(query)
-        return response
-    else:
-        # Use Ollama to get a response based on initial memory
-        response = ollama.chat(
-            model="gemma2:2b",
-            messages=[
-                LLM_INTENT,
-                {
-                    "role": "user",
-                    "content": query,
-                },
-            ],
-        )
-        return response["message"]["content"]
+    intent = IntentAgent().get_agent()
+    reply = intent.generate_reply(messages=[{"content": query, "role": "user"}])
+    return reply
 
 
 # def chat_key(query: str) -> str:

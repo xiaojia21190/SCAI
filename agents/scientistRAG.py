@@ -1,12 +1,16 @@
 from agents.rag.main import run_arxiv_rag
 from .base import BaseAgent
-from scholarly import scholarly
-import arxiv
-from typing import List, Dict
-from datetime import datetime
-from hashlib import md5
-from tenacity import retry, stop_after_attempt, wait_exponential
-import time
+
+
+def search_and_analyze_rag(query: str, max_results: int = 5) -> str:
+    """
+    搜索并分析论文
+    """
+    # 因为要分析全文，所以这里就会直接调用RAG
+
+    res = run_arxiv_rag(query, max_results)
+    # 分析论文
+    return res
 
 
 class ScientistRAGAgent(BaseAgent):
@@ -45,17 +49,7 @@ Remember: You have real search functionality - use it! Don't just show code or s
 
     def get_agent(self):
         """获取配置了函数的智能体"""
-        self.agent.register_function(
-            function_map={"search_and_analyze": self.search_and_analyze}
-        )
+        self.agent.register_for_llm(
+            name="search_and_analyze", description="A simple calculator"
+        )(search_and_analyze_rag)
         return self.agent
-
-    def search_and_analyze(self, query: str, max_results: int = 5) -> str:
-        """
-        搜索并分析论文
-        """
-        # 因为要分析全文，所以这里就会直接调用RAG
-
-        res = run_arxiv_rag(query, max_results)
-        # 分析论文
-        return res

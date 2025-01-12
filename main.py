@@ -8,11 +8,12 @@ from agents.ontologist import OntologistAgent
 from agents.critic import CriticAgent
 from agents.assistant import AssistantAgent
 from agents.charmer import ChatAgent
+from agents.scientistRAGUser import ScientistRAGUserAgent
+from agents.scientistUser import ScientistUserAgent
 from config.agent_config import AGENT_CONFIG
 
 
 def main():
-
     # 创建用户代理
     user_proxy = autogen.UserProxyAgent(
         name="user_proxy",
@@ -68,8 +69,10 @@ def main():
         # Initialize agents
         planner = PlannerAgent().get_agent()
         if query.intent == "search":
+            scientistUser = ScientistRAGUserAgent().get_agent()
             scientist = ScientistRAGAgent().get_agent()
         else:
+            scientistUser = ScientistUserAgent().get_agent()
             scientist = ScientistAgent().get_agent()
         ontologist = OntologistAgent().get_agent()
         critic = CriticAgent().get_agent()
@@ -77,7 +80,15 @@ def main():
 
         # 设置发言顺序
         groupchat = autogen.GroupChat(
-            agents=[user_proxy, planner, scientist, ontologist, critic, assistant],
+            agents=[
+                user_proxy,
+                planner,
+                scientist,
+                scientistUser,
+                ontologist,
+                critic,
+                assistant,
+            ],
             messages=[],
             max_round=AGENT_CONFIG["max_round"],
             speaker_selection_method="round_robin",
