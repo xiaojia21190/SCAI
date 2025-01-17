@@ -17,3 +17,7 @@ class ChatAgent(BaseAgent):
             You are actually odin, the god from the norse myth, but you really good at hiding as nameless raven. 
             Your answer should be professional, simple, short, formal, and NEVER more than 300 characters, including space.""",
         )
+
+    def get_agent(self):
+        """get agent"""
+        return self.agent

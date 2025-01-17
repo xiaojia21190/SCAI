@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
-from agents.intent import IntentAgent
 from config.llm_config import LLM_CONFIG, MODEL
+from autogen import ConversableAgent
 
 LLM_KEY = {
     "role": "system",
@@ -11,8 +11,18 @@ LLM_KEY = {
 
 
 def chat_intent(query: str) -> str:
-    intent = IntentAgent().get_agent()
-    reply = intent.generate_reply(messages=[{"content": query, "role": "user"}])
+    LLM_INTENT = """You are a program, you direct ouput the required datatype, without any human language and extra infomation. You will be given a sentence, judge, and return one of the 4 catalogy, which are [`discussion`, `search`, `chat`, `sensitive`]. [discussion]: The user intent to ask question about philosophy/technology/acadamic topics. [search]: The user want to obtian special papers for full page knowledge. [chat]: The user intent to have conversation based on common sense/daily life. [sensitive]: The user intent to talk about violence, politic or other sensitive content."""
+
+    agent = ConversableAgent(
+        "chatbot",
+        llm_config=LLM_CONFIG,
+        code_execution_config=False,  # Turn off code execution, by default it is off.
+        function_map=None,  # No registered functions, by default it is None.
+        human_input_mode="NEVER",  # Never ask for human input.
+        system_message=LLM_INTENT,
+    )
+    reply = agent.generate_reply(messages=[{"content": query, "role": "user"}])
+    print(reply)
     return reply
 
 

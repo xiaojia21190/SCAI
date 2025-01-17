@@ -26,7 +26,7 @@ INCORRECT USAGE:
 ❌ DO NOT proceed without actual search results
 
 Follow these exact steps:
-1. Start with: "Searching for relevant papers..."
+1. Start with: "Searching for relevant papers..."bv b
 2. EXECUTE search_and_analyze with the research question
 3. Wait for and use the actual results
 4. Present findings only from the returned papers
@@ -35,9 +35,19 @@ Follow these exact steps:
 Remember: You have real search functionality - use it! Don't just show code or simulate results.""",
         )
 
-    def get_agent(self):
-        """获取配置了函数的智能体"""
-        self.agent.register_for_llm(
-            name="search_and_analyze", description="A simple calculator"
-        )(search_and_analyze)
+    def get_agent(self, str=""):
+        """get agent"""
+        self.agent.update_system_message(f"""You are a research planning agent. Your role is to:
+1. Break down research queries into clear sub-tasks
+2. Coordinate with other agents to execute the research plan
+3. Ensure comprehensive coverage of the topic
+4. Maintain scientific rigor in the research proces. 
+here are some background knowledge {str}""")
         return self.agent
+
+    # def get_agent(self):
+    #     """获取配置了函数的智能体"""
+    #     self.agent.register_for_llm(
+    #         name="search_and_analyze", description="A simple calculator"
+    #     )(search_and_analyze)
+    #     return self.agent

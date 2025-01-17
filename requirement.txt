@@ -9,3 +9,5 @@ requests
 python-dotenv
 llama-index
 flaml[automl]
+autogen-agentchat[retrievechat]~=0.2
+unstructured[all-docs]

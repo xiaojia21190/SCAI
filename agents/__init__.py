@@ -1,8 +1,8 @@
-from .planner import PlannerAgent
-from .scientist import ScientistAgent
-from .ontologist import OntologistAgent
-from .critic import CriticAgent
-from .assistant import AssistantAgent
+from .agent_planner import PlannerAgent
+from .agent_scientist import ScientistAgent
+from .agent_ontologist import OntologistAgent
+from .agent_critic import CriticAgent
+from .agent_assistant import AssistantAgent
 
 __all__ = [
     'PlannerAgent',
