@@ -4,13 +4,10 @@ from agents.input_parser import InputParser
 from agents.paper_metadata_finder import PaperMetaSearcher
 from agents.agent_planner import PlannerAgent
 from agents.agent_scientist import ScientistAgent
-from agents.scientistRAG import ScientistRAGAgent
 from agents.agent_ontologist import OntologistAgent
 from agents.agent_critic import CriticAgent
 from agents.agent_assistant import AssistantAgent
 from agents.agent_charmer import ChatAgent
-from agents.scientistRAGUser import ScientistRAGUserAgent
-from agents.scientistUser import ScientistUserAgent
 from config.agent_config import AGENT_CONFIG
 
 # 流程
