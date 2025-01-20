@@ -1,0 +1,142 @@
+Sci-Hub is now available as meme coin!
+
+So far Sci-Hub has collected donations in normal cryptocurrencty only, but few days ago a surpise came: Sci-Hub rec
+The total amount of funding received by Sci-Hub, by current exchange rate, is about $2M. But how long will that fund
+Meme coins are in trend today, but usually they do not last long: after becoming viral these coins slowly decline in pr
+ But Sci-Hub is obviously much more than a meme: the website has a mission to make all of science open - and it is w
+dy (yes, there are recently some problems with new papers, but they are temporary).
+Indeed, it would be great if science had its own distributed cryptocurrency, that could be used to fund research proje
+s not new: there have been quite a few projects that attempted to implement it, but they did not succeed.
+But Sci-Hub meme coin succeeded, at least for now: the token has more than >16K holders and a market cap around
+ps in the future the coin will be default currency in science.
+All in all, the funding that Sci-Hub received will be spent to support more open science initiatives. For example, why n
+en journals?
+To support the initiative, you can install Solana wallet and buy some of Sci-Hub tokens. Donate part of them to Sci-H
+e coin community of course!
+
+---
+Sci-Hub collected a database of 88,343,822 research documents, freely available for download. Around 80% of the co
+ from conference proceedings, 5% are book chapters, the rest are other types of documents. 77% of the documents 
+6% between 2010 and 2020. The coverage is > 95% for all major scientific publishers. The total size of Sci-Hub database
+Medicine
+24,557,530
+ 
+Chemistry
+16,460,921
+ 
+Biology
+15,499,507
+ 
+Humanities
+12,592,316
+ 
+Physics
+8,658,518
+ 
+Engineering
+6,892,853
+Math
+3,676,789
+ 
+Ecology
+3,676,789
+ 
+Comp.sci
+2,768,241
+ 
+Economics
+2,572,842
+ 
+Geosci
+2,571,177
+Most research articles in database - around 25 million - come from medical and health journals. They are followed by
+
+elds. Note that numbers are rough and I was only able to assign field of science only for 70% of articles in Sci-Hub da
+download
+To get full listing of Sci-Hub contents see:
+a full list of Sci-Hub dois updated on 2022-02-12.
+an SQL table with metadata for every article from 30 May 2020 made by Library Genesis project.
+To get Sci-Hub contents: Since 2015 the full Sci-Hub database is available on torrents for download. Torrents are tech
+es over the Internet in a decentralized manner.
+You can download the torrents here. Torrents are provided by the Library Genesis project. In 2021 Redit community 
+ and seed torrents, to ensure long preservation of database.
+Sci-Hub database
+growth by year
+Sci-Hub was growing most quickly in the period from 2013 to 2016. That is because it was downloading old papers fr
+other databases
+These databases are useful for analysis of scientific publications:
+Crossref metadata - a gigantic database that indexes research documents by DOIs, providing information about auth
+tains 120+ million records, has API and is availabe for download on torrents.
+Carl Malamud's General Index - a gigantic dataset that indexes 107 million academic papers by n-grams
+OpenCitations Corpus a free and open database that has information about papers citing each other
+Scopus - the database is not free, but has freely accessible table with information about scientific journals that can b
+SCImago Journal & Country Rank - a freely accessible database with information about scientific journals
+---
+Sci-Hub is the most controversial project in modern science. The goal of Sci-Hub is to provide free and unrestricted a
+Sci-Hub started as a tool for providing quick access to articles from scientific journals - such articles are the main me
+-Hub has grown a database of 88,343,822 research articles and books - freely accessible for anyone to read and dow
+that most people cannot pay. Sci-Hub has revolutionized science by making all paid knowledge free.
+Millions of people all over the world use Sci-Hub to unlock access to knowledge. They come from all countries and no
+ope. For more detailed stats, visit the statistics section.
+Sci-Hub is extremely popular among scientists. Students use Sci-Hub for their research projects and graduation thes
+Sci-Hub also helps journalists, startups, and everyone who loves to learn new things.
+medicine
+Many medical professionals rely on Sci-Hub, because a great chunk of scientific journals are journals about medicine
+Sci-Hub helps to diagnose illnesses and prescribe therapy: free access to information saves human lives. More inform
+open access
+Sci-Hub is a part of the Open Access Movement in science. The movement emerged in 1990s as a reaction to increas
+d not afford journal subscriptions. Librarians and researchers argued for making access to knowledge free or cheap.
+High prices are unjustified and were made possible by monopoly-like mechanisms in academic publishing. The most
+zero money for their work.
+Sci-Hub became the most radical - and so far the most succesful - take on the open access.
+legal fight
+
+Sci-Hub has been hit by many lawsuits from academic publishing companies. They insist that Sci-Hub is not legal and
+ lawsuits access to Sci-Hub is being blocked in some countries.
+The position of Sci-Hub is: the project is legal, while restricting access to information and knowledge is not. The curre
+ation of human rights.
+To get more information about lawsuits against Sci-Hub and their current status visit this section.
+ 
+ 
+contact
+if you have questions and suggestions about Sci-Hub, contact me by email: alexandra@dns.cymru
+---
+Alexandra Elbakyan's CV
+I'm the person behind this website. On this page you can find information about me and why I created Sci-Hub. 
+bio cv photo works
+ideas contact
+biography
+I do programming since 12. By the time I got into the university I created web pages in HTML, wrote PHP scripts and 
+sciences too and wanted to code a Tamagotchi with artificial intelligence. That didn't work, but in the process I've col
+nloaded these books from pirate websites.
+There were also books from MIT CogNet website in my collection. They were paywalled, but a bug on the MIT websit
+ould download any neuroscience book from this website for free. I was 16 years old then.
+During my third year at the university I was and avid reader of science news and blogs in English. Then I read about n
+ human brain to the computer so you can control it by thinking. That inspired me and I thought: can we connect brai
+ running inside it? Should we connect our brain to the artificial neural network — to understand and feel its thinking?
+ experience flight — or create one global whole-Earth brain by connecting neurons of all people together via Internet
+Hence I wanted to dedicate a final year university thesis to brain-computer interfaces. I studied information security 
+t. I used neural networks to recognize patterns of brain activity.
+After graduation I wanted to start PhD program at some top US university to work on brain-machine interfaces, and 
+search topic I was interested, to connect networks of conscious experiences — that is very complicated. While simple
+to participate in two conferences: one on the philosophy of Consciousness in Arizona and the other about transhum
+Thinking how to interface brain with computer to experience processes inside microchips and artificial neural netwo
+tegrated Information Theory of consciousness that has a point. Brain is a network of billions of neurons connected t
+ce thinking and consciousness are essentially communication or information transfer.
+I was 23 and I returned to Kazakhstan and started working as a freelance programmer. With that experience I was ab
+ed a serious problem in science communication. I met this problem while working on my brain-computer interfaces 
+. Publishers are using paywalls to block access to research articles, asking for high reading fees. A lot of researchers 
+r Open Access. Sci-Hub is a PHP script that downloads articles for free to make them open access. Thereby commun
+ong researchers.
+Science must be open while communism and communication are same-root words. I got interested in politics thanks
+nd openness that time. I moved to Russia and in 2012 started a masters program in Public Administration or Govern
+I wanted to continue my research on open information, and study the history of the problem: how did people in anc
+information was sacred, language and writing and communication were manifestations of the god. That god was kno
+ in Armenia; and this god is known in modern astrology as Mercury. In addition these gods were associated with kno
+munism and science are inseparable'.
+In 2017 I started a masters program in Linguistics at the Saint-Petersburg State University, with profile in Languages 
+
+igions. There were troubles but in 2019 I graduated and now have a Masters degree in Linguistics.
+Today I'm doing a PhD at the Institute of Philosophy of Russian Academy of Sciences. I study theory of knowledge an
+there is also a long version of biography available in Russian
+

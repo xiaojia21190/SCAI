@@ -21,6 +21,9 @@ wheels/
 *.egg
 40.8.0
 
+# 本地残留
+backup
+
 # 虚拟环境
 venv/
 env/

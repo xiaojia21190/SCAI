@@ -2,7 +2,7 @@ from .llm_config import LLM_CONFIG
 
 AGENT_CONFIG = {
     "max_consecutive_auto_reply": 5,
-    "max_round": 50,
+    "max_round": 10,
     "llm_config": {
         "config_list": [
             {"model": LLM_CONFIG["model"], "api_key": LLM_CONFIG["api_key"]}

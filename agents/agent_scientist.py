@@ -1,19 +1,7 @@
-from agents.rag.main import run_arxiv_rag
 from .base import BaseAgent
 
 
-def search_and_analyze_rag(query: str, max_results: int = 5) -> str:
-    """
-    搜索并分析论文
-    """
-    # 因为要分析全文，所以这里就会直接调用RAG
-
-    res = run_arxiv_rag(query, max_results)
-    # 分析论文
-    return res
-
-
-class ScientistRAGAgent(BaseAgent):
+class ScientistAgent(BaseAgent):
     def __init__(self):
         self.current_papers = []
         super().__init__(
@@ -23,8 +11,8 @@ class ScientistRAGAgent(BaseAgent):
 1. IMMEDIATELY execute the search_and_analyze function when you start speaking
 2. DO NOT just show the code - actually execute the function
 3. Wait for the search results before proceeding
-4. Never make up or simulate paper information
-5. Based on the result, make summarize.
+4. Only cite papers from the actual search results
+5. Never make up or simulate paper information
 
 CORRECT USAGE:
 Searching for relevant papers...
@@ -37,19 +25,30 @@ INCORRECT USAGE:
 ❌ DO NOT proceed without actual search results
 
 Follow these exact steps:
-1. Start with: "Searching for relevant papers..."
+1. Start with: "Searching for relevant papers..."bv b
 2. EXECUTE search_and_analyze with the research question
 3. Wait for and use the actual results
 4. Present findings only from the returned papers
-5. If the paper search result is not ideal, say `No relevant papers found`
-6. End with TERMINATE
+5. End with TERMINATE
 
 Remember: You have real search functionality - use it! Don't just show code or simulate results.""",
         )
 
-    def get_agent(self):
-        """获取配置了函数的智能体"""
-        self.agent.register_for_llm(
-            name="search_and_analyze", description="A simple calculator"
-        )(search_and_analyze_rag)
+    def get_agent(self, str=""):
+        """get agent"""
+        self.agent.update_system_message(
+            f"""You are a research planning agent. Your role is to:
+1. Break down research queries into clear sub-tasks
+2. Coordinate with other agents to execute the research plan
+3. Ensure comprehensive coverage of the topic
+4. Maintain scientific rigor in the research proces. 
+here are some background knowledge {str}"""
+        )
         return self.agent
+
+    # def get_agent(self):
+    #     """获取配置了函数的智能体"""
+    #     self.agent.register_for_llm(
+    #         name="search_and_analyze", description="A simple calculator"
+    #     )(search_and_analyze)
+    #     return self.agent

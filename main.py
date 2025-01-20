@@ -1,16 +1,19 @@
 import os
 import autogen
 from agents.input_parser import InputParser
-from agents.planner import PlannerAgent
-from agents.scientist import ScientistAgent
-from agents.scientistRAG import ScientistRAGAgent
-from agents.ontologist import OntologistAgent
-from agents.critic import CriticAgent
-from agents.assistant import AssistantAgent
-from agents.charmer import ChatAgent
-from agents.scientistRAGUser import ScientistRAGUserAgent
-from agents.scientistUser import ScientistUserAgent
+from agents.paper_metadata_finder import PaperMetaSearcher
+from agents.agent_planner import PlannerAgent
+from agents.agent_scientist import ScientistAgent
+from agents.agent_ontologist import OntologistAgent
+from agents.agent_critic import CriticAgent
+from agents.agent_assistant import AssistantAgent
+from agents.agent_charmer import ChatAgent
 from config.agent_config import AGENT_CONFIG
+
+# 流程
+# 1-intent-chat/sense
+# 2-search
+# 3-groupchat-with/withoutrag
 
 
 def main():
@@ -26,7 +29,6 @@ def main():
             "work_dir": "workspace",
         },
     )
-
     # 示例查询
     # question = "What are the latest findings on dark matter?"
     # question = "What are attention mechanisms in LLMs?"
@@ -34,8 +36,11 @@ def main():
     question = (
         "What hardfork will Bitcoin have to prevent quantum computing from breaking it?"
     )
+
+    max_results = 3
     # question = "Find me some paper about robot price"
 
+    # 意图识别
     parser = InputParser()
     query = parser.parse_query(question)
 
@@ -46,6 +51,7 @@ def main():
         return
 
     if query.intent == "chat":
+
         charmer = ChatAgent().get_agent()
         # 设置发言顺序
         groupchat = autogen.GroupChat(
@@ -66,25 +72,37 @@ def main():
 
         user_proxy.initiate_chat(manager, message=message)
     else:
-        # Initialize agents
-        planner = PlannerAgent().get_agent()
+        # 这里我们进行一些架构修改，绕过执行不了函数的问题
+        # 我们会在Rag0运行之后，再启动planner
+
         if query.intent == "search":
-            scientistUser = ScientistRAGUserAgent().get_agent()
-            scientist = ScientistRAGAgent().get_agent()
+            # 这里需要下载全文，只能处理开源的情况
+            searcher = PaperMetaSearcher(max_results)
+            result = searcher.search_and_analyze(question, "OPEN")
         else:
-            scientistUser = ScientistUserAgent().get_agent()
-            scientist = ScientistAgent().get_agent()
-        ontologist = OntologistAgent().get_agent()
-        critic = CriticAgent().get_agent()
-        assistant = AssistantAgent().get_agent()
+            # 这里只需要摘要，甚至不需要RAG，把搜到的信息作为原始的prompt输入即可
+            searcher = PaperMetaSearcher(max_results)
+            result = searcher.search_and_analyze(question, "NO")
+
+        # Initialize agents
+        planner = PlannerAgent().get_agent(result)
+        # if query.intent == "search":
+        #     scientistUser = ScientistRAGUserAgent().get_agent(result)
+        #     scientist = ScientistRAGAgent().get_agent(result)
+        # else:
+        #     scientistUser = ScientistUserAgent().get_agent(result)
+        #     scientist = ScientistAgent().get_agent(result)
+        ontologist = OntologistAgent().get_agent(result)
+        critic = CriticAgent().get_agent(result)
+        assistant = AssistantAgent().get_agent(result)
 
         # 设置发言顺序
         groupchat = autogen.GroupChat(
             agents=[
                 user_proxy,
                 planner,
-                scientist,
-                scientistUser,
+                # scientist,
+                # scientistUser,
                 ontologist,
                 critic,
                 assistant,
